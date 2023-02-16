@@ -1,11 +1,18 @@
 package com.developerrafu.clientservice.controllers;
 
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
+
 import com.developerrafu.clientservice.models.rest.requests.EnderecoRequest;
 import com.developerrafu.clientservice.models.rest.responses.EstadoIdResponse;
 import com.developerrafu.clientservice.models.rest.responses.EstadoResponse;
 import com.developerrafu.clientservice.models.rest.responses.MunicipioResponse;
 import com.developerrafu.clientservice.models.rest.responses.ViaCepResponse;
 import com.developerrafu.clientservice.services.EnderecoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.Comparator;
 import java.util.List;
@@ -27,13 +34,15 @@ public class EnderecoController {
     this.service = service;
   }
 
-  @GetMapping("/{cep}")
-  public ResponseEntity<ViaCepResponse> getByCep(@PathVariable final String cep) {
+  @Operation(summary = "Recuperar endereço", description = "Recuperar endereço por cep")
+  @GetMapping(value = "/{cep}")
+  public ResponseEntity<ViaCepResponse> getByCep(@PathVariable @Valid @Min(8) final String cep) {
     return ResponseEntity.ok(service.findCep(cep));
   }
 
+  @Operation(summary = "Salvar ou alterar", description = "Salvar ou alterar endereço")
   @PatchMapping
-  public ResponseEntity<URI> upsert(@RequestBody EnderecoRequest request) {
+  public ResponseEntity<URI> upsert(@RequestBody @Valid @NotNull EnderecoRequest request) {
     final var result = service.save(request);
     final var uri =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -43,7 +52,8 @@ public class EnderecoController {
     return ResponseEntity.status(HttpStatus.CREATED).body(uri);
   }
 
-  @GetMapping("/estados")
+  @Operation(summary = "Recuperar estados", description = "Recuperar todos os estados do Brasil")
+  @GetMapping(value = "/estados")
   public ResponseEntity<List<EstadoIdResponse>> getEstados() {
     final var result = service.getEstados();
 
@@ -74,9 +84,21 @@ public class EnderecoController {
         .build();
   }
 
-  @GetMapping("/municipios/{estadoId}")
+  @Operation(
+      summary = "Recuperar municípios",
+      description = "Recuperar todos os municípios por estado do Brasil")
+  @GetMapping(value = "/municipios/{estadoId}")
   public ResponseEntity<List<MunicipioResponse>> getMunicipiosbByUf(
-      @PathVariable final Long estadoId) {
+      @Parameter(
+              description = "Id do estado",
+              name = "estadoId",
+              required = true,
+              example = "1",
+              in = PATH)
+          @PathVariable
+          @Valid
+          @Min(1)
+          final Long estadoId) {
     return ResponseEntity.ok(service.getMunicipios(estadoId));
   }
 

@@ -1,8 +1,14 @@
 package com.developerrafu.clientservice.controllers;
 
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
+
 import com.developerrafu.clientservice.models.rest.responses.ClienteResponse;
 import com.developerrafu.clientservice.services.ClienteService;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +25,21 @@ public class ClientRestController {
     this.service = service;
   }
 
-  @GetMapping("/{cpf}")
-  public ResponseEntity<ClienteResponse> getByCpf(@PathVariable final String cpf) {
+  @GetMapping(
+      value = "/{cpf}",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ClienteResponse> getByCpf(
+      @Parameter(
+              description = "CPF do usuário",
+              name = "cpf",
+              required = true,
+              example = "00000000000",
+              in = PATH)
+          @PathVariable
+          @Valid
+          @Min(11)
+          final String cpf) {
     return ResponseEntity.ok(service.getByCPF(cpf));
   }
 }
