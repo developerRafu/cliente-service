@@ -8,12 +8,12 @@ import lombok.Setter;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EnderecoResponse {
-    private Long id;
-    private String cep;
-    private String numero;
-    private String logradouro;
-    private String complemento;
-    private String bairro;
-    private String localidade;
-    private String uf;
+  private Long id;
+  private String cep;
+  private String numero;
+  private String logradouro;
+  private String complemento;
+  private String bairro;
+  private String localidade;
+  private String uf;
 }

@@ -7,13 +7,13 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ClienteMapper {
-    ClienteResponse toResponse(final Cliente cliente);
+  ClienteResponse toResponse(final Cliente cliente);
 
-    default ClienteResponse toResponse(final Cliente cliente, final EnderecoResponse endereco) {
-        final var response = toResponse(cliente);
-        if (endereco != null) {
-            response.setEndereco(endereco);
-        }
-        return response;
+  default ClienteResponse toResponse(final Cliente cliente, final EnderecoResponse endereco) {
+    final var response = toResponse(cliente);
+    if (endereco != null) {
+      response.setEndereco(endereco);
     }
+    return response;
+  }
 }

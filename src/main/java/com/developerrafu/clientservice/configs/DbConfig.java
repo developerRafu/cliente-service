@@ -10,24 +10,24 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DbConfig {
-    private final ClienteService clienteService;
-    private final EnderecoService enderecoService;
+  private final ClienteService clienteService;
+  private final EnderecoService enderecoService;
 
-    @Autowired
-    public DbConfig(final ClienteService clienteService, final EnderecoService enderecoService) {
-        this.clienteService = clienteService;
-        this.enderecoService = enderecoService;
-    }
+  @Autowired
+  public DbConfig(final ClienteService clienteService, final EnderecoService enderecoService) {
+    this.clienteService = clienteService;
+    this.enderecoService = enderecoService;
+  }
 
-    @Bean
-    public Cliente init() {
-        final var endereco = Endereco.builder().cep("01153000").numero("22").build();
-        final var cliente = Cliente.builder().cpf("70288841395").nome("User 1").build();
-        final var cliente2 = Cliente.builder().cpf("80784768412").nome("User 2").build();
-        clienteService.save(cliente);
-        clienteService.save(cliente2);
-        endereco.setClienteId(cliente.getId());
-        enderecoService.save(endereco);
-        return cliente;
-    }
+  @Bean
+  public Cliente init() {
+    final var endereco = Endereco.builder().cep("01153000").numero("22").build();
+    final var cliente = Cliente.builder().cpf("70288841395").nome("User 1").build();
+    final var cliente2 = Cliente.builder().cpf("80784768412").nome("User 2").build();
+    clienteService.save(cliente);
+    clienteService.save(cliente2);
+    endereco.setClienteId(cliente.getId());
+    enderecoService.save(endereco);
+    return cliente;
+  }
 }

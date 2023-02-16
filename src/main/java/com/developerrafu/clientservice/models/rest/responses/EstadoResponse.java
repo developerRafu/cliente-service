@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EstadoResponse {
-    private Long id;
-    private String sigla;
-    private String nome;
+  private Long id;
+  private String sigla;
+  private String nome;
 }

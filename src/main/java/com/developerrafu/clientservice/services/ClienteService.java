@@ -9,31 +9,35 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 public class ClienteService {
-    private final ClienteRepository repository;
-    private final EnderecoService enderecoService;
-    private final ClienteMapper mapper;
+  private final ClienteRepository repository;
+  private final EnderecoService enderecoService;
+  private final ClienteMapper mapper;
 
-    @Autowired
-    public ClienteService(final ClienteRepository repository, final EnderecoService enderecoService, final ClienteMapper mapper) {
-        this.repository = repository;
-        this.enderecoService = enderecoService;
-        this.mapper = mapper;
-    }
+  @Autowired
+  public ClienteService(
+      final ClienteRepository repository,
+      final EnderecoService enderecoService,
+      final ClienteMapper mapper) {
+    this.repository = repository;
+    this.enderecoService = enderecoService;
+    this.mapper = mapper;
+  }
 
-    @Transactional
-    public Cliente save(final Cliente cliente) {
-        return repository.save(cliente);
-    }
+  @Transactional
+  public Cliente save(final Cliente cliente) {
+    return repository.save(cliente);
+  }
 
-    public ClienteResponse getByCPF(final String cpf) {
-        final var result = this.repository.findByCpf(cpf);
-        return result.map(cliente -> {
-            final var endereco = this.enderecoService.findEnderecoByClienteId(cliente.getId());
-            return mapper.toResponse(cliente, endereco);
-        }).orElseThrow(ClienteNotFoundException::new);
-    }
+  public ClienteResponse getByCPF(final String cpf) {
+    final var result = this.repository.findByCpf(cpf);
+    return result
+        .map(
+            cliente -> {
+              final var endereco = this.enderecoService.findEnderecoByClienteId(cliente.getId());
+              return mapper.toResponse(cliente, endereco);
+            })
+        .orElseThrow(ClienteNotFoundException::new);
+  }
 }

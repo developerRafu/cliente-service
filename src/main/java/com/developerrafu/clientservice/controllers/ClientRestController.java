@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/clientes")
 public class ClientRestController {
-    private final ClienteService service;
+  private final ClienteService service;
 
-    @Autowired
-    public ClientRestController(final ClienteService service) {
-        this.service = service;
-    }
+  @Autowired
+  public ClientRestController(final ClienteService service) {
+    this.service = service;
+  }
 
-    @GetMapping("/{cpf}")
-    public ResponseEntity<ClienteResponse> getByCpf(@PathVariable final String cpf) {
-        return ResponseEntity.ok(service.getByCPF(cpf));
-    }
+  @GetMapping("/{cpf}")
+  public ResponseEntity<ClienteResponse> getByCpf(@PathVariable final String cpf) {
+    return ResponseEntity.ok(service.getByCPF(cpf));
+  }
 }
