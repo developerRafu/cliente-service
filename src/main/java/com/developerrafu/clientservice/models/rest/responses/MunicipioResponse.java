@@ -11,8 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MunicipioResponse {
-    @JsonProperty
-    private Long id;
-    @JsonProperty
-    private String nome;
+  @JsonProperty private Long id;
+  @JsonProperty private String nome;
 }

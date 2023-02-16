@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EnderecoRequest {
-    private Long clienteId;
-    private String numero;
-    private String cep;
+  private Long clienteId;
+  private String numero;
+  private String cep;
 }

@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EstadoIdResponse {
-    private String nome;
-    private Long id;
+  private String nome;
+  private Long id;
 }

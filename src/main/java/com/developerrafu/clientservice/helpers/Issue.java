@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Issue {
-    private String details;
-    private ErrorsEnum error;
-    private Integer code;
-    private String Client;
+  private String details;
+  private ErrorsEnum error;
+  private Integer code;
+  private String Client;
 }

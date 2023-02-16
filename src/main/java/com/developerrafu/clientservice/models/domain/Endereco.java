@@ -11,10 +11,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Endereco {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String cep;
-    private String numero;
-    private Long clienteId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  private String cep;
+  private String numero;
+  private Long clienteId;
 }
