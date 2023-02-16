@@ -1,14 +1,18 @@
 package com.developerrafu.clientservice.models.rest.responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EstadoResponse {
+public class MunicipioResponse {
+    @JsonProperty
     private Long id;
-    private String sigla;
+    @JsonProperty
     private String nome;
 }

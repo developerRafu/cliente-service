@@ -1,6 +1,7 @@
 package com.developerrafu.clientservice.services;
 
 import com.developerrafu.clientservice.models.rest.responses.EstadoResponse;
+import com.developerrafu.clientservice.models.rest.responses.MunicipioResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,5 +16,9 @@ public class LocalidadeService {
 
     public List<EstadoResponse> getEstados() {
         return cliente.getEstados();
+    }
+
+    public List<MunicipioResponse> getMunicipios(final Long estadoId) {
+        return cliente.getMunicipios(estadoId);
     }
 }

@@ -1,7 +1,9 @@
 package com.developerrafu.clientservice.controllers;
 
 import com.developerrafu.clientservice.models.rest.requests.EnderecoRequest;
+import com.developerrafu.clientservice.models.rest.responses.EstadoIdResponse;
 import com.developerrafu.clientservice.models.rest.responses.EstadoResponse;
+import com.developerrafu.clientservice.models.rest.responses.MunicipioResponse;
 import com.developerrafu.clientservice.models.rest.responses.ViaCepResponse;
 import com.developerrafu.clientservice.services.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,16 +43,32 @@ public class EnderecoController {
     }
 
     @GetMapping("/estados")
-    public ResponseEntity<List<String>> getEstados() {
+    public ResponseEntity<List<EstadoIdResponse>> getEstados() {
         final var result = service.getEstados();
+
         final var auxList = result
                 .stream()
                 .filter(EnderecoController::isSPOrRJ)
-                .map(EstadoResponse::getNome)
-                .sorted(Comparator.reverseOrder())
+                .map(this::toEstadoIdResponse)
+                .sorted((e1, e2) -> e2.getNome().compareTo(e1.getNome()))
                 .collect(Collectors.toList());
-        auxList.addAll(result.stream().map(EstadoResponse::getNome).filter(nome -> !auxList.contains(nome)).sorted(String::compareTo).toList());
+
+        auxList.addAll(result.stream()
+                .map(this::toEstadoIdResponse)
+                .filter(estado -> auxList.stream().noneMatch(item -> Objects.equals(item.getId(), estado.getId())))
+                .sorted(Comparator.comparing(EstadoIdResponse::getNome))
+                .toList());
+
         return ResponseEntity.ok(auxList);
+    }
+
+    private EstadoIdResponse toEstadoIdResponse(final EstadoResponse estadoResponse) {
+        return EstadoIdResponse.builder().id(estadoResponse.getId()).nome(estadoResponse.getNome()).build();
+    }
+
+    @GetMapping("/municipios/{estadoId}")
+    public ResponseEntity<List<MunicipioResponse>> getMunicipiosbByUf(@PathVariable final Long estadoId) {
+        return ResponseEntity.ok(service.getMunicipios(estadoId));
     }
 
     private static boolean isSPOrRJ(final EstadoResponse estadoResponse) {
