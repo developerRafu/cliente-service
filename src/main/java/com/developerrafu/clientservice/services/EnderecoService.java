@@ -5,6 +5,7 @@ import com.developerrafu.clientservice.models.domain.Endereco;
 import com.developerrafu.clientservice.models.rest.requests.EnderecoRequest;
 import com.developerrafu.clientservice.models.rest.responses.EnderecoResponse;
 import com.developerrafu.clientservice.models.rest.responses.EstadoResponse;
+import com.developerrafu.clientservice.models.rest.responses.MunicipioResponse;
 import com.developerrafu.clientservice.models.rest.responses.ViaCepResponse;
 import com.developerrafu.clientservice.repositories.EnderecoRepository;
 import jakarta.transaction.Transactional;
@@ -54,5 +55,9 @@ public class EnderecoService {
 
     public List<EstadoResponse> getEstados() {
         return localidadeService.getEstados();
+    }
+
+    public List<MunicipioResponse> getMunicipios(final Long estadoId) {
+        return localidadeService.getMunicipios(estadoId);
     }
 }
