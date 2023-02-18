@@ -1,7 +1,6 @@
 package com.developerrafu.clientservice.controllers;
 
-import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
-
+import com.developerrafu.clientservice.exceptions.ClienteNotFoundException;
 import com.developerrafu.clientservice.models.rest.responses.ClienteResponse;
 import com.developerrafu.clientservice.services.ClienteService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -15,31 +14,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
+
 @RestController
 @RequestMapping("/clientes")
 public class ClientRestController {
-  private final ClienteService service;
+    private final ClienteService service;
 
-  @Autowired
-  public ClientRestController(final ClienteService service) {
-    this.service = service;
-  }
+    @Autowired
+    public ClientRestController(final ClienteService service) {
+        this.service = service;
+    }
 
-  @GetMapping(
-      value = "/{cpf}",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ClienteResponse> getByCpf(
-      @Parameter(
-              description = "CPF do usuário",
-              name = "cpf",
-              required = true,
-              example = "00000000000",
-              in = PATH)
-          @PathVariable
-          @Valid
-          @Min(11)
-          final String cpf) {
-    return ResponseEntity.ok(service.getByCPF(cpf));
-  }
+    @GetMapping(
+            value = "/{cpf}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClienteResponse> getByCpf(
+            @Parameter(
+                    description = "CPF do usuário",
+                    name = "cpf",
+                    required = true,
+                    example = "00000000000",
+                    in = PATH)
+            @PathVariable
+            @Valid
+            @Min(11) final String cpf) {
+
+        return service.getByCPF(cpf).map(ResponseEntity::ok).orElseThrow(ClienteNotFoundException::new);
+    }
 }
