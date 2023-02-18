@@ -1,6 +1,5 @@
 package com.developerrafu.clientservice.services;
 
-import com.developerrafu.clientservice.exceptions.ClienteNotFoundException;
 import com.developerrafu.clientservice.mappers.ClienteMapper;
 import com.developerrafu.clientservice.models.domain.Cliente;
 import com.developerrafu.clientservice.models.rest.responses.ClienteResponse;
