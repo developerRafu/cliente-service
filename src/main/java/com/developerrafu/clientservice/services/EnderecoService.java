@@ -43,7 +43,7 @@ public class EnderecoService {
     return this.repository.save(endereco);
   }
 
-  public Endereco save(final EnderecoRequest request) {
+  public Endereco saveRequest(final EnderecoRequest request) {
     final var endereco = mapper.toEndereco(request);
     return save(endereco);
   }
