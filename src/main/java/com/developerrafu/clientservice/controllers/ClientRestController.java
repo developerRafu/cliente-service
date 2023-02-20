@@ -1,7 +1,5 @@
 package com.developerrafu.clientservice.controllers;
 
-import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
-
 import com.developerrafu.clientservice.exceptions.ClienteNotFoundException;
 import com.developerrafu.clientservice.helpers.JsonUtils;
 import com.developerrafu.clientservice.helpers.LogEnum;
@@ -12,12 +10,13 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
 
 @RestController
 @RequestMapping("/clientes")
@@ -30,10 +29,7 @@ public class ClientRestController {
     this.service = service;
   }
 
-  @GetMapping(
-      value = "/{cpf}",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping("/{cpf}")
   public ResponseEntity<ClienteResponse> getByCpf(
       @Parameter(
               description = "CPF do usuário",
