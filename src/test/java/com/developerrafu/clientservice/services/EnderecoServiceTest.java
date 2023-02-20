@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.developerrafu.clientservice.clients.ViaCepClient;
 import com.developerrafu.clientservice.helpers.builders.*;
 import com.developerrafu.clientservice.mappers.EnderecoMapper;
 import com.developerrafu.clientservice.models.rest.requests.EnderecoRequest;
@@ -19,18 +18,18 @@ import org.mapstruct.factory.Mappers;
 
 class EnderecoServiceTest {
   EnderecoRepository repository;
-  ViaCepClient client;
   EnderecoMapper mapper;
   LocalidadeService localidadeService;
   EnderecoService service;
+  ViaCepService viaCepService;
 
   @BeforeEach
   void setUp() {
     repository = mock(EnderecoRepository.class);
-    client = mock(ViaCepClient.class);
     localidadeService = mock(LocalidadeService.class);
     mapper = Mappers.getMapper(EnderecoMapper.class);
-    service = new EnderecoService(repository, client, mapper, localidadeService, viaCepService);
+    viaCepService = mock(ViaCepService.class);
+    service = new EnderecoService(repository, mapper, localidadeService, viaCepService);
   }
 
   @Test
@@ -68,7 +67,7 @@ class EnderecoServiceTest {
         .thenReturn(
             Optional.of(
                 EnderecoMockBuilder.getBuilder().defaultValues().withClienteId(1L).build()));
-    when(client.getCetp(any()))
+    when(viaCepService.getCetp(any()))
         .thenReturn(ViaCepResponseMockBuilder.getBuilder().defaultValues().build());
     final var result = service.findEnderecoByClienteId(1L);
     assertNotNull(result);

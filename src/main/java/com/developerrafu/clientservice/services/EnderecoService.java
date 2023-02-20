@@ -1,6 +1,5 @@
 package com.developerrafu.clientservice.services;
 
-import com.developerrafu.clientservice.clients.ViaCepClient;
 import com.developerrafu.clientservice.mappers.EnderecoMapper;
 import com.developerrafu.clientservice.models.domain.Endereco;
 import com.developerrafu.clientservice.models.rest.requests.EnderecoRequest;
@@ -23,9 +22,10 @@ public class EnderecoService {
 
   @Autowired
   public EnderecoService(
-          final EnderecoRepository repository,
-          final EnderecoMapper mapper,
-          final LocalidadeService localidadeService, final ViaCepService viaCepService) {
+      final EnderecoRepository repository,
+      final EnderecoMapper mapper,
+      final LocalidadeService localidadeService,
+      final ViaCepService viaCepService) {
     this.repository = repository;
     this.viaCepService = viaCepService;
     this.mapper = mapper;

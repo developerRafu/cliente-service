@@ -10,17 +10,17 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class ViaCepService {
-    private final ViaCepClient client;
+  private final ViaCepClient client;
 
-    @Autowired
-    public ViaCepService(final ViaCepClient client) {
-        this.client = client;
-    }
+  @Autowired
+  public ViaCepService(final ViaCepClient client) {
+    this.client = client;
+  }
 
-    public ViaCepResponse getCetp(final String cep) {
-        log.info(LogEnum.GET_VIA_CEP_REQUEST.getFormatteMessage(cep));
-        final var response = client.getCetp(cep);
-        log.info(LogEnum.GET_VIA_CEP_RESPONSE.getFormatteMessage(cep));
-        return response;
-    }
+  public ViaCepResponse getCetp(final String cep) {
+    log.info(LogEnum.GET_VIA_CEP_REQUEST.getFormatteMessage(cep));
+    final var response = client.getCetp(cep);
+    log.info(LogEnum.GET_VIA_CEP_RESPONSE.getFormatteMessage(cep));
+    return response;
+  }
 }

@@ -6,16 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JsonUtils {
-    private JsonUtils() {
-    }
+  private JsonUtils() {}
 
-    public static String toString(Object object) {
-        final var mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage());
-            return null;
-        }
+  public static String toString(Object object) {
+    final var mapper = new ObjectMapper();
+    try {
+      return mapper.writeValueAsString(object);
+    } catch (JsonProcessingException e) {
+      log.error(e.getMessage());
+      return null;
     }
+  }
 }
