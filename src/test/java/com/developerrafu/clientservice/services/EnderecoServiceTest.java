@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.developerrafu.clientservice.clients.ViaCepClient;
 import com.developerrafu.clientservice.helpers.builders.*;
 import com.developerrafu.clientservice.mappers.EnderecoMapper;
 import com.developerrafu.clientservice.models.rest.requests.EnderecoRequest;
@@ -29,7 +30,7 @@ class EnderecoServiceTest {
     client = mock(ViaCepClient.class);
     localidadeService = mock(LocalidadeService.class);
     mapper = Mappers.getMapper(EnderecoMapper.class);
-    service = new EnderecoService(repository, client, mapper, localidadeService);
+    service = new EnderecoService(repository, client, mapper, localidadeService, viaCepService);
   }
 
   @Test

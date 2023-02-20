@@ -1,5 +1,6 @@
 package com.developerrafu.clientservice.services;
 
+import com.developerrafu.clientservice.clients.ViaCepClient;
 import com.developerrafu.clientservice.mappers.EnderecoMapper;
 import com.developerrafu.clientservice.models.domain.Endereco;
 import com.developerrafu.clientservice.models.rest.requests.EnderecoRequest;
@@ -16,24 +17,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class EnderecoService {
   private final EnderecoRepository repository;
-  private final ViaCepClient client;
   private final EnderecoMapper mapper;
   private final LocalidadeService localidadeService;
+  private final ViaCepService viaCepService;
 
   @Autowired
   public EnderecoService(
-      final EnderecoRepository repository,
-      final ViaCepClient client,
-      final EnderecoMapper mapper,
-      final LocalidadeService localidadeService) {
+          final EnderecoRepository repository,
+          final EnderecoMapper mapper,
+          final LocalidadeService localidadeService, final ViaCepService viaCepService) {
     this.repository = repository;
-    this.client = client;
+    this.viaCepService = viaCepService;
     this.mapper = mapper;
     this.localidadeService = localidadeService;
   }
 
   public ViaCepResponse findCep(final String cep) {
-    return this.client.getCetp(cep);
+    return this.viaCepService.getCetp(cep);
   }
 
   @Transactional

@@ -1,4 +1,4 @@
-package com.developerrafu.clientservice.services;
+package com.developerrafu.clientservice.clients;
 
 import com.developerrafu.clientservice.models.rest.responses.ViaCepResponse;
 import org.springframework.cloud.openfeign.FeignClient;

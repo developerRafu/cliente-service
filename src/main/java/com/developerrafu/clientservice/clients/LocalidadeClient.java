@@ -1,4 +1,4 @@
-package com.developerrafu.clientservice.services;
+package com.developerrafu.clientservice.clients;
 
 import com.developerrafu.clientservice.models.rest.responses.EstadoResponse;
 import com.developerrafu.clientservice.models.rest.responses.MunicipioResponse;
