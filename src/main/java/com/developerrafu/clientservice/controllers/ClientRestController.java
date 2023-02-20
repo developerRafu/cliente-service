@@ -3,11 +3,14 @@ package com.developerrafu.clientservice.controllers;
 import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
 
 import com.developerrafu.clientservice.exceptions.ClienteNotFoundException;
+import com.developerrafu.clientservice.helpers.JsonUtils;
+import com.developerrafu.clientservice.helpers.LogEnum;
 import com.developerrafu.clientservice.models.rest.responses.ClienteResponse;
 import com.developerrafu.clientservice.services.ClienteService;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/clientes")
+@Slf4j
 public class ClientRestController {
   private final ClienteService service;
 
@@ -41,7 +45,15 @@ public class ClientRestController {
           @Valid
           @Min(11)
           final String cpf) {
+    log.info(LogEnum.GET_CLIENTE_REQUEST.getFormatteMessage(cpf));
 
-    return service.getByCPF(cpf).map(ResponseEntity::ok).orElseThrow(ClienteNotFoundException::new);
+    final var response =
+        service.getByCPF(cpf).map(ResponseEntity::ok).orElseThrow(ClienteNotFoundException::new);
+
+    log.info(
+        LogEnum.GET_CLIENTE_RESPONSE.getFormatteMessage(
+            JsonUtils.toString(response.getBody()), response.getStatusCode()));
+
+    return response;
   }
 }

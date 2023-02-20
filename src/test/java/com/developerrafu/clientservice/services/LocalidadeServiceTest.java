@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.developerrafu.clientservice.clients.LocalidadeClient;
 import com.developerrafu.clientservice.helpers.builders.EstadoResponseMockBuilder;
 import com.developerrafu.clientservice.helpers.builders.MunicipioResponseMockBuilder;
 import java.util.Collections;
