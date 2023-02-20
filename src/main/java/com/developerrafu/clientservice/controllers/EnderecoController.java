@@ -43,7 +43,7 @@ public class EnderecoController {
   @Operation(summary = "Salvar ou alterar", description = "Salvar ou alterar endereço")
   @PatchMapping
   public ResponseEntity<URI> upsert(@RequestBody @Valid @NotNull EnderecoRequest request) {
-    final var result = service.save(request);
+    final var result = service.saveRequest(request);
     final var uri =
         ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{cep}")

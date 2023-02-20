@@ -1,11 +1,11 @@
 package com.developerrafu.clientservice.services;
 
-import com.developerrafu.clientservice.exceptions.ClienteNotFoundException;
 import com.developerrafu.clientservice.mappers.ClienteMapper;
 import com.developerrafu.clientservice.models.domain.Cliente;
 import com.developerrafu.clientservice.models.rest.responses.ClienteResponse;
 import com.developerrafu.clientservice.repositories.ClienteRepository;
 import jakarta.transaction.Transactional;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +30,12 @@ public class ClienteService {
     return repository.save(cliente);
   }
 
-  public ClienteResponse getByCPF(final String cpf) {
+  public Optional<ClienteResponse> getByCPF(final String cpf) {
     final var result = this.repository.findByCpf(cpf);
-    return result
-        .map(
-            cliente -> {
-              final var endereco = this.enderecoService.findEnderecoByClienteId(cliente.getId());
-              return mapper.toResponse(cliente, endereco);
-            })
-        .orElseThrow(ClienteNotFoundException::new);
+    return result.map(
+        cliente -> {
+          final var endereco = this.enderecoService.findEnderecoByClienteId(cliente.getId());
+          return mapper.toResponse(cliente, endereco);
+        });
   }
 }

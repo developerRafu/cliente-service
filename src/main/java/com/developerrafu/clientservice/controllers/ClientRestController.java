@@ -2,6 +2,7 @@ package com.developerrafu.clientservice.controllers;
 
 import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
 
+import com.developerrafu.clientservice.exceptions.ClienteNotFoundException;
 import com.developerrafu.clientservice.models.rest.responses.ClienteResponse;
 import com.developerrafu.clientservice.services.ClienteService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -40,6 +41,7 @@ public class ClientRestController {
           @Valid
           @Min(11)
           final String cpf) {
-    return ResponseEntity.ok(service.getByCPF(cpf));
+
+    return service.getByCPF(cpf).map(ResponseEntity::ok).orElseThrow(ClienteNotFoundException::new);
   }
 }

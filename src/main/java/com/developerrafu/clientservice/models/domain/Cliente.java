@@ -10,6 +10,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Cliente {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

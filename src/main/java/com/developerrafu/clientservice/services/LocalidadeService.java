@@ -7,17 +7,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LocalidadeService {
-  private final LocalidadeCliente cliente;
+  private final LocalidadeClient client;
 
-  public LocalidadeService(final LocalidadeCliente cliente) {
-    this.cliente = cliente;
+  public LocalidadeService(final LocalidadeClient cliente) {
+    this.client = cliente;
   }
 
   public List<EstadoResponse> getEstados() {
-    return cliente.getEstados();
+    return client.getEstados();
   }
 
   public List<MunicipioResponse> getMunicipios(final Long estadoId) {
-    return cliente.getMunicipios(estadoId);
+    return client.getMunicipios(estadoId);
   }
 }
