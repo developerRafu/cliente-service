@@ -27,8 +27,8 @@ public class ErrorDecoderImpl implements ErrorDecoder {
       issue.setError(error);
       issue.setClient(response.toString());
       issue.setCode(response.status());
-
-      log.error(error.getFormattedMessage(response.toString()));
+      issue.setMessage(error.getFormattedMessage(response.toString()));
+      log.error(issue.getMessage());
       throw new ExternalRequestException(issue);
     } catch (IOException e) {
       final var message = ErrorsEnum.UNPROCESSED_RESPONSE.getFormattedMessage(methodKey);
