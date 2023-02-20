@@ -10,4 +10,5 @@ public class Issue {
   private ErrorsEnum error;
   private Integer code;
   private String Client;
+  private String message;
 }
